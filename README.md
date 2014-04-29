@@ -78,3 +78,9 @@ creat a new file using FZEasyFile:
     
     NSOutputStream *output = [NSOutputStream outputStreamToFileAtPath:[easyFile fullFileName:path] append:NO];
 ```
+
+##Contact
+Email me:[zhoujun@jiecao.fm](mailto:zhoujun@jiecao.fm)
+
+##License
+MIT License. See the `LICENSE` file.
