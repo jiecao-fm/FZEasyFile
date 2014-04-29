@@ -7,7 +7,10 @@ A easy way to create or overwrite file in sandbox
 It’s tedious, boring and unreadable using iOS’s sdk directly to manage file. FZEasyFile provides a easy way to create or overwrite file in sandbox. If you want to create a file, you just tell FZEasyFile your file name is ”my/file/path/info.txt”, you don’t need to care about what the root directory is and whether the directory “my/file/path/” exists. Actually, the root directory is “Documents” in sandbox, “my/file/path” will be create automatically if not exists.
 
 #Usage
+###Import the source files
+Drag FZEasyFile.h and FZEasyFile.m to your project.
 
+###Get the instance
 FZEasyFile is written in singleton pattern. Anywhere you want to use it, just call the static method:
 ```objective-c
     FZEasyFile *easyFile = [FZEasyFile sharedInstance];
@@ -62,7 +65,7 @@ creat a new file in traditional way:
         [fileManager createFileAtPath:filePath contents:data attributes:nil];
     }
 ```
-creat a new file using FZEasyFile
+creat a new file using FZEasyFile:
 ```objective-c
     NSString *path = [NSString stringWithFormat:@"%@/%@", uid, @pbcache_file_pbmsgs];
     FZEasyFile *easyFile = [FZEasyFile sharedInstance];
