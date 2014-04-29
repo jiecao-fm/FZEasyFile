@@ -4,7 +4,7 @@ FZEasyFile
 An easy way to create or overwrite file in sandbox
 
 #What is it?
-It’s tedious, boring and unreadable using iOS’s sdk directly to manage file. FZEasyFile provides a easy way to create or overwrite file in sandbox. If you want to create a file, you just tell FZEasyFile your file name is ”my/file/path/info.txt”, you don’t need to care about what the root directory is and whether the directory “my/file/path/” exists. 
+It’s tedious, boring and unreadable to use iOS’s sdk to manage file directly. FZEasyFile provides an easy way to create or overwrite file in sandbox. If you want to create a file, you just tell FZEasyFile your file name, which is ”my/file/path/info.txt”. You don’t need to care about what the root directory is or whether the directory “my/file/path/” exists. 
 
 Actually, the root directory is “Documents” in sandbox, “my/file/path” will be create automatically if not exists.
 
@@ -34,14 +34,14 @@ FZEasyFile is written in singleton pattern. Anywhere you want to use it, just ca
 ```objective-c
 - (NSString *)fullFileName:(NSString *)shortFileName;
 ```
-After getting the full name, you can pass it to other api to use, such as NSInputStream:
+After getting the full name, you can pass it to other API, such as NSInputStream:
 ```objective-c
     NSInputStream *input = [NSInputStream inputStreamWithFileAtPath:[easyFile fullFileName:@“my/file/path/info.txt”]];
 ```
 
 #Comparison
-Here I paste two paragraphs of code. Respectively, one using traditional way, the other one using FZEasyFile.
-creat a new file in traditional way:
+Here I paste two paragraphs of code. Respectively, one using traditional way, the other using FZEasyFile.
+Creat a new file in traditional way:
 ```objective-c
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
