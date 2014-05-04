@@ -22,21 +22,22 @@ FZEasyFile is written in singleton pattern. Anywhere you want to use it, just ca
 ```
 ###Test whether the file exists
 ```objective-c
-- (BOOL)isFileExists:(NSString *)fileName;
+[easyFile isFileExists:@“my/file/path/info.txt”]
 ```
 
 ###Create a new file
 ```objective-c
-- (void)createFile:(NSString *)fileName overwrite:(BOOL)shouldOverwrite;
+FZEasyFile *easyFile = [FZEasyFile sharedInstance];
+[easyFile createFile:”my/file/path/info.txt” overwrite:NO];
 ```
 
 ###Translate short file name to full one
 ```objective-c
-- (NSString *)fullFileName:(NSString *)shortFileName;
+NSString *fullName = [easyFile fullFileName:”my/file/path/info.txt”];
 ```
 After getting the full name, you can pass it to other API, such as NSInputStream:
 ```objective-c
-    NSInputStream *input = [NSInputStream inputStreamWithFileAtPath:[easyFile fullFileName:@"my/file/path/info.txt"]];
+NSInputStream *input = [NSInputStream inputStreamWithFileAtPath:fullName];
 ```
 
 #Comparison
@@ -72,11 +73,9 @@ Creat a new file in traditional way:
 ```
 creat a new file using FZEasyFile:
 ```objective-c
-    NSString *path = [NSString stringWithFormat:@"%@/%@", uid, @pbcache_file_pbmsgs];
-    FZEasyFile *easyFile = [FZEasyFile sharedInstance];
-    [easyFile createFile:path overwrite:NO];
-    
-    NSOutputStream *output = [NSOutputStream outputStreamToFileAtPath:[easyFile fullFileName:path] append:NO];
+FZEasyFile *easyFile = [FZEasyFile sharedInstance];
+[easyFile createFile:fileName overwrite:NO];
+NSOutputStream *output = [NSOutputStream outputStreamToFileAtPath:[easyFile fullFileName:fileName] append:NO];
 ```
 
 ##Contact
