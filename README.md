@@ -18,22 +18,22 @@ Drag "FZEasyFile.h" and "FZEasyFile.m" to your project. And import .h file in yo
 ###Get the instance
 FZEasyFile is written in singleton pattern. Anywhere you want to use it, just call the static method:
 ```objective-c
-    FZEasyFile *easyFile = [FZEasyFile sharedInstance];
+FZEasyFile *easyFile = [FZEasyFile sharedInstance];
 ```
 ###Test whether the file exists
 ```objective-c
-[easyFile isFileExists:@“my/file/path/info.txt”]
+[easyFile isFileExists:@"my/file/path/info.txt"]
 ```
 
 ###Create a new file
 ```objective-c
 FZEasyFile *easyFile = [FZEasyFile sharedInstance];
-[easyFile createFile:”my/file/path/info.txt” overwrite:NO];
+[easyFile createFile:"my/file/path/info.txt" overwrite:NO];
 ```
 
 ###Translate short file name to full one
 ```objective-c
-NSString *fullName = [easyFile fullFileName:”my/file/path/info.txt”];
+NSString *fullName = [easyFile fullFileName:"my/file/path/info.txt"];
 ```
 After getting the full name, you can pass it to other API, such as NSInputStream:
 ```objective-c
