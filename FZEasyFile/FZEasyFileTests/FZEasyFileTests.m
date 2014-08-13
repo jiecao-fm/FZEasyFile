@@ -7,10 +7,13 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "FZEasyFile.h"
 
 @interface FZEasyFileTests : XCTestCase
 
 @end
+
+static NSString *file = @"a/b.txt";
 
 @implementation FZEasyFileTests
 
@@ -26,9 +29,16 @@
     [super tearDown];
 }
 
-- (void)testExample
-{
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+- (void)testExample {
+    NSString *fullName = [FZEasyFile fullFileName:file];
+    NSLog(@"fullName of %@ is:%@", file, fullName);
+    NSAssert(fullName && fullName.length > file.length, @"convert full file name failed!");
+    
+    [FZEasyFile createFile:file overwrite:YES];
+    NSAssert([FZEasyFile isFileExists:file], @"create file failed!");
+
+    [FZEasyFile removeFile:file];
+    NSAssert(![FZEasyFile isFileExists:file], @"remove file failed!");
 }
 
 @end
