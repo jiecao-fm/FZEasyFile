@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "FZEasyFile"
-  s.version      = "0.0.2"
+  s.version      = "0.0.3"
   s.summary      = "An easy way to create, overwrite and remove file in sandbox."
 
   s.description  = <<-DESC
@@ -13,7 +13,7 @@ It’s tedious, boring and unreadable to use iOS’s sdk to manage file directly
   s.homepage     = "https://github.com/jiecao-fm/FZEasyFile"
   s.license      = "MIT"
   s.author             = { "Shannon" => "zhoujun@jiecao.fm" }
-  s.source       = { :git => "https://github.com/jiecao-fm/FZEasyFile.git", :tag => "v0.0.2" }
+  s.source       = { :git => "https://github.com/jiecao-fm/FZEasyFile.git", :tag => "v0.0.3" }
   s.source_files  = "FZEasyFile/FZEasyFile/**/*.{h,m}"
   s.requires_arc = true
 end
