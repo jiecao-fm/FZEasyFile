@@ -1,7 +1,7 @@
 FZEasyFile
 ==========
 
-An easy way to create or overwrite file in sandbox
+An easy way to create, overwrite and remove file in sandbox.
 
 #What is it?
 It’s tedious, boring and unreadable to use iOS’s sdk to manage file directly. FZEasyFile provides an easy way to create or overwrite file in sandbox. If you want to create a file, you just tell FZEasyFile your file name, which is "my/file/path/info.txt". You don’t need to care about what the root directory is or whether the directory "my/file/path/" exists. 

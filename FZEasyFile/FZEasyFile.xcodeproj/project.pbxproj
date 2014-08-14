@@ -405,6 +405,7 @@
 				30853D3D190FB7EA00179ED0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		30853D3E190FB7EA00179ED0 /* Build configuration list for PBXNativeTarget "FZEasyFileTests" */ = {
 			isa = XCConfigurationList;
@@ -413,6 +414,7 @@
 				30853D40190FB7EA00179ED0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
