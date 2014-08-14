@@ -37,6 +37,15 @@ static NSString *file = @"a/b.txt";
     [FZEasyFile createFile:file overwrite:YES];
     NSAssert([FZEasyFile isFileExists:file], @"create file failed!");
 
+    [FZEasyFile writeFile:file contents:[@"a" dataUsingEncoding:NSUTF8StringEncoding] append:NO];
+    
+    NSString *contents = [NSString stringWithContentsOfFile:fullName encoding:NSUTF8StringEncoding error:nil];
+    NSAssert([@"a" isEqualToString:contents], @"write file failed");
+    
+    [FZEasyFile writeFile:file contents:[@"b" dataUsingEncoding:NSUTF8StringEncoding] append:YES];
+    contents = [NSString stringWithContentsOfFile:fullName encoding:NSUTF8StringEncoding error:nil];
+    NSAssert([@"ab" isEqualToString:contents], @"append file failed");
+
     [FZEasyFile removeFile:file];
     NSAssert(![FZEasyFile isFileExists:file], @"remove file failed!");
 }

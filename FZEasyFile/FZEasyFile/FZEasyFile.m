@@ -55,4 +55,15 @@ static FZEasyFile *instance;
     [fileManager removeItemAtPath:file error:nil];
 }
 
++ (void)writeFile:(NSString *)fileName contents:(NSData *)contents append:(BOOL)shouldAppend {
+    if (![self isFileExists:fileName] || !shouldAppend) {
+        [self createFile:fileName overwrite:YES];
+    }
+    NSString *fullName = [FZEasyFile fullFileName:fileName];
+    NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:fullName];
+    [fileHandle seekToEndOfFile];
+    [fileHandle writeData:contents];
+    [fileHandle closeFile];
+}
+
 @end
