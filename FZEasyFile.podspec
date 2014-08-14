@@ -13,8 +13,8 @@ It’s tedious, boring and unreadable to use iOS’s sdk to manage file directly
   s.homepage     = "https://github.com/jiecao-fm/FZEasyFile"
   s.license      = "MIT"
   s.author             = { "Shannon" => "zhoujun@jiecao.fm" }
-  s.source       = { :git => "https://github.com/jiecao-fm/FZEasyFile", :tag => "v0.0.1" }
-  s.source_files  = "Classes", "FZEasyFile/**/*.{h,m}"
-  s.exclude_files = "FZEasyFileTests/"
+  s.source       = { :git => "https://github.com/jiecao-fm/FZEasyFile.git", :tag => "v0.0.1" }
+  s.source_files  = "FZEasyFile/**/*.{h,m}"
+	s.framework			= "XCTest"
   s.requires_arc = true
 end
