@@ -25,6 +25,19 @@ Drag "FZEasyFile.h" and "FZEasyFile.m" to your project. And import .h file in yo
 [EasyFile createFile:"my/file/path/info.txt" overwrite:NO];
 ```
 
+###Write file (overwrite/append)
+```objective-c
+[FZEasyFile writeFile:"my/file/path/info.txt" contents:[@"a" dataUsingEncoding:NSUTF8StringEncoding] append:NO];
+[FZEasyFile writeFile:"my/file/path/info.txt" contents:[@"b" dataUsingEncoding:NSUTF8StringEncoding] append:YES];
+```
+After these calling the content of the file is "ab".
+
+###Remove file or path
+```objective-c
+[FZEasyFile removeFile:"my/file/path/info.txt"];
+[FZEasyFile removeFile:"my/file/path"];
+```
+
 ###Translate short file name to full one
 ```objective-c
 NSString *fullName = [EasyFile fullFileName:"my/file/path/info.txt"];
