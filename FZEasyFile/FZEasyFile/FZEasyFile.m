@@ -13,10 +13,7 @@
 static FZEasyFile *instance;
 
 + (NSString *)fullFileName:(NSString *)shortFileName {
-    //search the "document" path
-    NSArray *directoryPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentDirectory = [directoryPaths objectAtIndex:0];
-    
+    NSString *documentDirectory = NSHomeDirectory();
     NSString *file = [documentDirectory stringByAppendingPathComponent:shortFileName];
     return file;
 }
