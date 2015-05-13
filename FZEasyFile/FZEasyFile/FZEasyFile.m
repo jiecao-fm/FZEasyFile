@@ -14,6 +14,7 @@ static FZEasyFile *instance;
 
 + (NSString *)fullFileName:(NSString *)shortFileName {
     NSString *documentDirectory = NSHomeDirectory();
+    NSLog(@"home:%@", documentDirectory);
     NSString *file = [documentDirectory stringByAppendingPathComponent:shortFileName];
     return file;
 }
@@ -47,6 +48,10 @@ static FZEasyFile *instance;
 }
 
 + (void)removeFile:(NSString *)fileName {
+    if ([self isBlankString:fileName]) {
+        NSLog(@"You really want to remove the home directory? I guess you not!");
+        return;
+    }
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *file = [self fullFileName:fileName];
     [fileManager removeItemAtPath:file error:nil];
@@ -61,6 +66,24 @@ static FZEasyFile *instance;
     [fileHandle seekToEndOfFile];
     [fileHandle writeData:contents];
     [fileHandle closeFile];
+}
+
++ (BOOL) isBlankString:(NSString *)string {
+    
+    if (string == nil || string == NULL) {
+        return YES;
+    }
+    
+    if ([string isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    
+    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+        return YES;
+    }
+    
+    return NO;
+    
 }
 
 @end

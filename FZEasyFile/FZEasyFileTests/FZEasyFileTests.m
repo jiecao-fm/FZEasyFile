@@ -13,7 +13,7 @@
 
 @end
 
-static NSString *file = @"a/b.txt";
+static NSString *file = @"Documents/a/b.txt";
 
 @implementation FZEasyFileTests
 
@@ -48,6 +48,9 @@ static NSString *file = @"a/b.txt";
 
     [FZEasyFile removeFile:file];
     NSAssert(![FZEasyFile isFileExists:file], @"remove file failed!");
+    
+    [FZEasyFile removeFile:@""];
+    NSAssert([FZEasyFile isFileExists:@""], @"Home directory is removed, It's dangerous!");
 }
 
 @end
