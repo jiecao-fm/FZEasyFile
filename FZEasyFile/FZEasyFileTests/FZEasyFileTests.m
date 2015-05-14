@@ -30,6 +30,7 @@ static NSString *file = @"Documents/a/b.txt";
 }
 
 - (void)testExample {
+    //////////using short file name
     NSString *fullName = [FZEasyFile fullFileName:file];
     NSLog(@"fullName of %@ is:%@", file, fullName);
     NSAssert(fullName && fullName.length > file.length, @"convert full file name failed!");
@@ -51,6 +52,25 @@ static NSString *file = @"Documents/a/b.txt";
     
     [FZEasyFile removeFile:@""];
     NSAssert([FZEasyFile isFileExists:@""], @"Home directory is removed, It's dangerous!");
+    
+    
+    ////////////using file url
+    NSURL *fileUrl = [NSURL fileURLWithPath:fullName];
+    
+    [FZEasyFile createFileWithFileUrl:fileUrl overwrite:YES];
+    NSAssert([FZEasyFile isFileExists:file], @"create file failed!");
+    
+    [FZEasyFile writeFileWithFileUrl:fileUrl contents:[@"a" dataUsingEncoding:NSUTF8StringEncoding] append:NO];
+    
+    contents = [NSString stringWithContentsOfFile:fullName encoding:NSUTF8StringEncoding error:nil];
+    NSAssert([@"a" isEqualToString:contents], @"write file failed");
+
+    [FZEasyFile writeFileWithFileUrl:fileUrl contents:[@"b" dataUsingEncoding:NSUTF8StringEncoding] append:YES];
+    contents = [NSString stringWithContentsOfFile:fullName encoding:NSUTF8StringEncoding error:nil];
+    NSAssert([@"ab" isEqualToString:contents], @"append file failed");
+    
+    [FZEasyFile removeFileWithFileUrl:fileUrl];
+    NSAssert(![FZEasyFile isFileUrlExists:fileUrl], @"remove file failed!");
 }
 
 @end

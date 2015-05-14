@@ -14,7 +14,6 @@ static FZEasyFile *instance;
 
 + (NSString *)fullFileName:(NSString *)shortFileName {
     NSString *documentDirectory = NSHomeDirectory();
-    NSLog(@"home:%@", documentDirectory);
     NSString *file = [documentDirectory stringByAppendingPathComponent:shortFileName];
     return file;
 }
@@ -25,25 +24,30 @@ static FZEasyFile *instance;
     return [fileManager fileExistsAtPath:file];
 }
 
++ (BOOL)isFileUrlExists:(NSURL *)fileUrl {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    return [fileManager fileExistsAtPath:fileUrl.path];
+}
+
 + (void)createFile:(NSString *)fileName overwrite:(BOOL)shouldOverwrite {
+    NSString *fullName = [self fullFileName:fileName];
+    NSURL *fileUrl = [NSURL fileURLWithPath:fullName];
+    [self createFileWithFileUrl:fileUrl overwrite:shouldOverwrite];
+}
+
++ (void)createFileWithFileUrl:(NSURL *)fileUrl overwrite:(BOOL)shouldOverwrite {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
     //create file directory, include multilayer directory
-    NSRange lastTag = [fileName rangeOfString:@"/" options:NSBackwardsSearch];
-    if (lastTag.location != NSNotFound && lastTag.location != 0) {
-        NSString *shortDir = [fileName substringToIndex:lastTag.location];
-        NSString *fullDir = [self fullFileName:shortDir];
-        if (![fileManager fileExistsAtPath:fullDir]) {
-            [fileManager createDirectoryAtPath:fullDir withIntermediateDirectories:YES attributes:nil error:nil];
-        }
+    NSString *fullDir = fileUrl.URLByDeletingLastPathComponent.path;
+    if (![fileManager fileExistsAtPath:fullDir]) {
+        [fileManager createDirectoryAtPath:fullDir withIntermediateDirectories:YES attributes:nil error:nil];
     }
     
-    NSString *file = [self fullFileName:fileName];
-    
     //file not exists or want to overwrite it
-    if (shouldOverwrite || ![fileManager fileExistsAtPath:file]) {
-        BOOL suc = [fileManager createFileAtPath:file contents:nil attributes:nil];
-        NSLog(@"create file(%@) %@", file, suc ? @"successfully" : @"failed");
+    if (shouldOverwrite || ![fileManager fileExistsAtPath:fileUrl.path]) {
+        BOOL suc = [fileManager createFileAtPath:fileUrl.path contents:nil attributes:nil];
+        NSLog(@"create file(%@) %@", fileUrl.path, suc ? @"successfully" : @"failed");
     }
 }
 
@@ -52,21 +56,32 @@ static FZEasyFile *instance;
         NSLog(@"You really want to remove the home directory? I guess you not!");
         return;
     }
-    NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *file = [self fullFileName:fileName];
-    [fileManager removeItemAtPath:file error:nil];
+    NSURL *url = [NSURL fileURLWithPath:file];
+    [self removeFileWithFileUrl:url];
+}
+
++ (void)removeFileWithFileUrl:(NSURL *)fileUlr {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    [fileManager removeItemAtPath:fileUlr.path error:nil];
 }
 
 + (void)writeFile:(NSString *)fileName contents:(NSData *)contents append:(BOOL)shouldAppend {
-    if (![self isFileExists:fileName] || !shouldAppend) {
-        [self createFile:fileName overwrite:YES];
-    }
     NSString *fullName = [FZEasyFile fullFileName:fileName];
-    NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:fullName];
+    NSURL *fileUrl = [NSURL fileURLWithPath:fullName];
+    [self writeFileWithFileUrl:fileUrl contents:contents append:shouldAppend];
+}
+
++ (void)writeFileWithFileUrl:(NSURL *)fileUrl contents:(NSData *)contents append:(BOOL)shouldAppend {
+    if (![self isFileUrlExists:fileUrl] || !shouldAppend) {
+        [self createFileWithFileUrl:fileUrl overwrite:YES];
+    }
+    NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:fileUrl.path];
     [fileHandle seekToEndOfFile];
     [fileHandle writeData:contents];
     [fileHandle closeFile];
 }
+
 
 + (BOOL) isBlankString:(NSString *)string {
     

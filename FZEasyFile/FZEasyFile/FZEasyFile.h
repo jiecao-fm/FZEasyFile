@@ -18,30 +18,60 @@
 
 /**
  Test if the file exists.
- @param fileName file path and file name, e.g. "mycache/user/icon.png".
+ @param shortFileName file path and file name, e.g. "mycache/user/icon.png".
  @return YES if exists, NO otherwise.
  */
-+ (BOOL)isFileExists:(NSString *)fileName;
++ (BOOL)isFileExists:(NSString *)shortFileName;
+
+/**
+ Test if the file exists.
+ @param fileUrl
+ @return YES if exists, NO otherwise.
+ */
++ (BOOL)isFileUrlExists:(NSURL *)fileUrl;
+
 
 /**
  Create a file. Don't care about if the file exists. This will automatically overwrite it.
- @param fileName fileName file path and file name, e.g. "mycache/user/icon.png".
+ @param shortFileName fileName file path and file name, e.g. "mycache/user/icon.png".
  @param shouldOverwrite YES:if the file exists then overwirte it, NO:if the file exists then do nothing
  */
-+ (void)createFile:(NSString *)fileName overwrite:(BOOL)shouldOverwrite;
++ (void)createFile:(NSString *)shortFileName overwrite:(BOOL)shouldOverwrite;
+
+/**
+ Create a file. Don't care about if the file exists. This will automatically overwrite it.
+ @param fileUrl
+ @param shouldOverwrite YES:if the file exists then overwirte it, NO:if the file exists then do nothing
+ */
++ (void)createFileWithFileUrl:(NSURL *)fileUrl overwrite:(BOOL)shouldOverwrite;
 
 /**
  Write contents to file. Don't care about if the file exists. This will automatically create it.
- @param fileName fileName file path and file name, e.g. "mycache/user/icon.png".
+ @param shortFileName fileName file path and file name, e.g. "mycache/user/icon.png".
  @param contents the contents you wish to write
  @param shouldAppend YES:append contents to original file; NO:overwrite the original file
  */
-+ (void)writeFile:(NSString *)fileName contents:(NSData *)contents append:(BOOL)shouldAppend;
++ (void)writeFile:(NSString *)shortFileName contents:(NSData *)contents append:(BOOL)shouldAppend;
+
+/**
+ Write contents to file. Don't care about if the file exists. This will automatically create it.
+ @param fileUrl
+ @param contents the contents you wish to write
+ @param shouldAppend YES:append contents to original file; NO:overwrite the original file
+ */
++ (void)writeFileWithFileUrl:(NSURL *)fileUrl contents:(NSData *)contents append:(BOOL)shouldAppend;
+
 
 /**
  remove a file
- @param fileName file path and file name, e.g. "mycache/user/icon.png".
+ @param shortFileName file path and file name, e.g. "mycache/user/icon.png".
  */
-+ (void)removeFile:(NSString *)fileName;
++ (void)removeFile:(NSString *)shortFileName;
+
+/**
+ remove a file
+ @param fileUlr
+ */
++ (void)removeFileWithFileUrl:(NSURL *)fileUlr;
 
 @end
