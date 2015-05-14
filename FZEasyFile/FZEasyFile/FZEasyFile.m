@@ -25,6 +25,9 @@ static FZEasyFile *instance;
 }
 
 + (BOOL)isFileUrlExists:(NSURL *)fileUrl {
+    if (!fileUrl || [self isBlankString:fileUrl.path]) {
+        return NO;
+    }
     NSFileManager *fileManager = [NSFileManager defaultManager];
     return [fileManager fileExistsAtPath:fileUrl.path];
 }
