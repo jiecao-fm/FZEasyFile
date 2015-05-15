@@ -21,7 +21,8 @@ static FZEasyFile *instance;
 + (BOOL)isFileExists:(NSString *)fileName {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *file = [self fullFileName:fileName];
-    return [fileManager fileExistsAtPath:file];
+    BOOL dir;
+    return [fileManager fileExistsAtPath:file isDirectory:&dir];
 }
 
 + (BOOL)isFileUrlExists:(NSURL *)fileUrl {
@@ -32,10 +33,30 @@ static FZEasyFile *instance;
     return [fileManager fileExistsAtPath:fileUrl.path];
 }
 
++ (BOOL)isFolderExists:(NSString *)shortName {
+    NSString *fullName = [self fullFileName:shortName];
+    NSURL *fileUrl = [NSURL fileURLWithPath:fullName];
+    return [self isFolderUrlExists:fileUrl];
+}
+
++ (BOOL)isFolderUrlExists:(NSURL *)folderUrl {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL dir;
+    [fileManager fileExistsAtPath:folderUrl.path isDirectory:&dir];
+    return dir;
+}
+
+
 + (void)createFile:(NSString *)fileName overwrite:(BOOL)shouldOverwrite {
     NSString *fullName = [self fullFileName:fileName];
     NSURL *fileUrl = [NSURL fileURLWithPath:fullName];
     [self createFileWithFileUrl:fileUrl overwrite:shouldOverwrite];
+}
+
++ (void)createFolder:(NSString *)shortName {
+    NSString *fullName = [self fullFileName:shortName];
+    NSURL *fileUrl = [NSURL fileURLWithPath:fullName];
+    [self createFolderWithFileUrl:fileUrl];
 }
 
 + (void)createFileWithFileUrl:(NSURL *)fileUrl overwrite:(BOOL)shouldOverwrite {
@@ -52,6 +73,12 @@ static FZEasyFile *instance;
         BOOL suc = [fileManager createFileAtPath:fileUrl.path contents:nil attributes:nil];
         NSLog(@"create file(%@) %@", fileUrl.path, suc ? @"successfully" : @"failed");
     }
+}
+
++ (void)createFolderWithFileUrl:(NSURL *)fileUrl {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    //create file directory, include multilayer directory
+    [fileManager createDirectoryAtPath:fileUrl.path withIntermediateDirectories:YES attributes:nil error:nil];
 }
 
 + (void)removeFile:(NSString *)fileName {

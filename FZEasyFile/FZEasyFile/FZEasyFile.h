@@ -24,6 +24,21 @@
 + (BOOL)isFileExists:(NSString *)shortFileName;
 
 /**
+ Test if the folder exists.
+ @param shortName file path and file name, e.g. "mycache/user".
+ @return YES if exists, NO otherwise.
+ */
++ (BOOL)isFolderExists:(NSString *)shortName;
+
+
+/**
+ Test if the folder exists.
+ @param shortName file path and file name, e.g. "mycache/user".
+ @return YES if exists, NO otherwise.
+ */
++ (BOOL)isFolderUrlExists:(NSURL *)folderUrl;
+
+/**
  Test if the file exists.
  @param fileUrl
  @return YES if exists, NO otherwise.
@@ -39,11 +54,24 @@
 + (void)createFile:(NSString *)shortFileName overwrite:(BOOL)shouldOverwrite;
 
 /**
+ Create a folder.
+ @param shortName  e.g. "Library/aFolder"
+ */
++ (void)createFolder:(NSString *)shortName;
+
+/**
  Create a file. Don't care about if the file exists. This will automatically overwrite it.
  @param fileUrl
  @param shouldOverwrite YES:if the file exists then overwirte it, NO:if the file exists then do nothing
  */
 + (void)createFileWithFileUrl:(NSURL *)fileUrl overwrite:(BOOL)shouldOverwrite;
+
+/**
+ Create a folder.
+ @param fileUrl
+ */
++ (void)createFolderWithFileUrl:(NSURL *)fileUrl;
+
 
 /**
  Write contents to file. Don't care about if the file exists. This will automatically create it.

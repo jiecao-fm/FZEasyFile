@@ -14,6 +14,7 @@
 @end
 
 static NSString *file = @"Documents/a/b.txt";
+static NSString *folder = @"Documents/aFolder";
 
 @implementation FZEasyFileTests
 
@@ -53,6 +54,12 @@ static NSString *file = @"Documents/a/b.txt";
     [FZEasyFile removeFile:@""];
     NSAssert([FZEasyFile isFileExists:@""], @"Home directory is removed, It's dangerous!");
     
+    [FZEasyFile createFolder:folder];
+    NSAssert([FZEasyFile isFolderExists:folder], @"create folder failed!");
+    [FZEasyFile removeFile:folder];
+    NSAssert(![FZEasyFile isFolderExists:folder], @"remove folder failed!");
+    
+    
     
     ////////////using file url
     NSURL *fileUrl = [NSURL fileURLWithPath:fullName];
@@ -71,6 +78,12 @@ static NSString *file = @"Documents/a/b.txt";
     
     [FZEasyFile removeFileWithFileUrl:fileUrl];
     NSAssert(![FZEasyFile isFileUrlExists:fileUrl], @"remove file failed!");
+    
+    NSURL *folderUrl = [NSURL fileURLWithPath:folder isDirectory:YES];
+    [FZEasyFile createFolderWithFileUrl:folderUrl];
+    NSAssert([FZEasyFile isFolderUrlExists:folderUrl], @"create folder failed!");
+    [FZEasyFile removeFileWithFileUrl:folderUrl];
+    NSAssert(![FZEasyFile isFolderUrlExists:folderUrl], @"remove folder failed!");
 }
 
 @end
